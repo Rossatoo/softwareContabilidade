@@ -28,6 +28,6 @@ public class ClienteController {
     @PostMapping("/add")
     public String addCliente(Cliente cliente){
         clienteRepository.save(cliente);
-        return "redirect:/fornecedores/add";
+        return "redirect:/clientes/add";
     }
 }
