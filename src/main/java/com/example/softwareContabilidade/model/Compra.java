@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 @Entity
 @Table(name = "compras")
@@ -14,6 +16,8 @@ public class Compra {
     private Long id;
 
     private int quantidade;
+
+    private BigDecimal valorFinal;
 
     @ManyToOne
     @JoinColumn(name = "produto_id")

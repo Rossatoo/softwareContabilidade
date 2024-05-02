@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Compra</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 700px;
+        }
+        .icon-container {
+            vertical-align: middle;
+            padding-right: 5px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const produtoSelect = document.getElementById('produto');
+            const quantidadeInput = document.getElementById('quantidade');
+            const valorFinalInput = document.getElementById('valorFinal');
+
+            function updateValorFinal() {
+                const preco = produtoSelect.selectedOptions[0].getAttribute('data-preco');
+                const quantidade = quantidadeInput.value;
+                const valorFinal = (preco * quantidade).toFixed(2);
+                valorFinalInput.value = valorFinal;
+            }
+
+            produtoSelect.addEventListener('change', updateValorFinal);
+            quantidadeInput.addEventListener('input', updateValorFinal);
+        });
+    </script>
+</head>
+<body>
+<div th:replace="layout/menu :: navbar"></div>
+<div class="container mt-5">
+    <div class="card">
+        <h5 class="card-header">Cadastro de Compra</h5>
+        <div class="card-body">
+            <form th:action="@{/compras}" th:object="${compra}" method="post">
+                <div class="mb-3">
+                    <label for="produto" class="form-label">Produto:</label>
+                    <select class="form-select" id="produto" th:field="*{produto}" required>
+                        <option value="" th:each="produto : ${produtos}"
+                                th:value="${produto.id}" th:text="${produto.nome}"
+                                th:data-preco="${produto.precoCompra}">Selecione um Produto</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="quantidade" class="form-label">Quantidade:</label>
+                    <input type="number" class="form-control" id="quantidade" th:field="*{quantidade}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="valorFinal" class="form-label">Valor Final:</label>
+                    <input type="text" class="form-control" id="valorFinal" th:field="*{valorFinal}" readonly>
+                </div>
+                <button type="submit" class="btn btn-primary">Salvar Compra</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
