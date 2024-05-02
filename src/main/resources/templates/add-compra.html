@@ -39,7 +39,7 @@
     <div class="card">
         <h5 class="card-header">Cadastro de Compra</h5>
         <div class="card-body">
-            <form th:action="@{/compras}" th:object="${compra}" method="post">
+            <form th:action="@{/compras/add}" th:object="${compra}" method="post">
                 <div class="mb-3">
                     <label for="produto" class="form-label">Produto:</label>
                     <select class="form-select" id="produto" th:field="*{produto}" required>

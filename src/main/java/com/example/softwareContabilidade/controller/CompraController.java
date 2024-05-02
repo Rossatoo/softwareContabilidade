@@ -25,8 +25,6 @@ public class CompraController {
     @Autowired
     private CompraRepository compraRepository;
 
-    //Autowired
-    //private icmsReceberRepository icmsReceberRepository;
 
     @GetMapping("/add")
     public String showForm(Model model) {
@@ -39,14 +37,6 @@ public class CompraController {
     @PostMapping("/add")
     public String processCompra(Compra compra) {
         compraRepository.save(compra);
-
-        // Opcional: Criar e salvar o ICMS a receber
-       // icmsReceber icms = new icmsReceber();
-       // icms.setCompra(compra);
-        // Aqui você definiria o valor do ICMS com base em algum cálculo ou regra de negócio
-       // icms.setValor(compra.getValorFinal().multiply(new BigDecimal("0.18"))); // Exemplo de 18% de ICMS
-       // icmsReceberRepository.save(icms);
-
         return "redirect:/compras/add";// Redireciona para a lista de compras ou página de confirmação
     }
 }
