@@ -66,10 +66,10 @@
             <label>Produtos e Quantidade:</label>
             <div id="product-container">
                 <div th:each="produto, iterStat : ${produtos}">
-                    <select class="product-select" th:id="'produto' + ${iterStat.index}" th:name="'produto' + ${iterStat.index}">
+                    <select class="product-select" th:id="'produto' + ${iterStat.index}" th:name="'produtos' + ${iterStat.index}">
                         <option th:value="${produto.id}" th:text="${produto.nome}"></option>
                     </select>
-                    <input type="number" class="product-quantity" th:id="'quantidade' + ${iterStat.index}" th:name="'quantidade' + ${iterStat.index}" min="0" th:attr="data-price=${produto.precoVenda}, data-productid=${produto.id}" placeholder="Quantidade" />
+                    <input type="number" class="product-quantity" th:id="'quantidade' + ${iterStat.index}" th:name="'quantidades' + ${iterStat.index}" min="0" th:attr="data-price=${produto.precoVenda}, data-productid=${produto.id}" placeholder="Quantidade" />
                 </div>
             </div>
         </div>

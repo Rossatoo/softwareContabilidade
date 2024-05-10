@@ -25,5 +25,5 @@ public class Compra {
     private Produto produto;
 
     @OneToOne(mappedBy = "compra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private icmsReceber icmsReceber;
+    private IcmsReceber icmsReceber;
 }

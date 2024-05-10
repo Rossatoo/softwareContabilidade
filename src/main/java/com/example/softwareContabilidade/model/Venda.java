@@ -31,6 +31,12 @@ public class Venda {
     @Column(nullable = false)
     private BigDecimal valorTotal;
 
+    @Column(name = "custo_total")
+    private BigDecimal custoTotal;
+
+    @Column(name = "lucro_bruto")
+    private BigDecimal lucroBruto;
+
 
     //method for add an order detail
     public void addOrderDetail(VendaProduto orderDetail){

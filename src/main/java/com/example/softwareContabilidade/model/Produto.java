@@ -19,8 +19,10 @@ public class Produto {
 
     private String nome;
 
+    @Column(name = "precoCompra")
     private BigDecimal precoCompra;
 
+    @Column(name = "precoVenda")
     private BigDecimal precoVenda;
 
     @ManyToOne
