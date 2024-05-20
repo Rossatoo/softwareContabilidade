@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/produtos")
 public class ProdutoController {
@@ -32,5 +34,12 @@ public class ProdutoController {
     public String addProduto(Produto produto) {
         produtoRepository.save(produto);
         return "redirect:/produtos/add";
+    }
+
+    @GetMapping("/listar")
+    public String listarProdutos(Model model) {
+        List<Produto> produtos = produtoRepository.findAll();
+        model.addAttribute("produtos", produtos);
+        return "listar-produtos";
     }
 }

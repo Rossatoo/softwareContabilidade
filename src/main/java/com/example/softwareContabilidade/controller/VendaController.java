@@ -68,6 +68,13 @@ public class VendaController {
 
         return custoTotal;
     }
+
+    @GetMapping("/listar")
+    public String listarVendas(Model model) {
+        List<Venda> vendas = vendaRepository.findAll();
+        model.addAttribute("vendas", vendas);
+        return "listar-vendas";
+    }
 }
 
 

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -29,5 +31,12 @@ public class ClienteController {
     public String addCliente(Cliente cliente){
         clienteRepository.save(cliente);
         return "redirect:/clientes/add";
+    }
+
+    @GetMapping("/listar")
+    public String listarClientes(Model model) {
+        List<Cliente> clientes = clienteRepository.findAll();
+        model.addAttribute("clientes", clientes);
+        return "listar-clientes";
     }
 }

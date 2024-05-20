@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/fornecedores")
 public class FornecedorController {
@@ -28,5 +30,12 @@ public class FornecedorController {
     public String addFornecedor(Fornecedor fornecedor) {
         fornecedorRepository.save(fornecedor);
         return "redirect:/fornecedores/add";
+    }
+
+    @GetMapping("/listar")
+    public String listarFornecedores(Model model) {
+        List<Fornecedor> fornecedores = fornecedorRepository.findAll();
+        model.addAttribute("fornecedores", fornecedores);
+        return "listar-fornecedores";
     }
 }

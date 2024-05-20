@@ -54,4 +54,11 @@ public class CompraController {
 
         return "redirect:/compras/add";// Redireciona para a lista de compras ou página de confirmação
     }
+
+    @GetMapping("/listar")
+    public String listarCompras(Model model) {
+        List<Compra> compras = compraRepository.findAll();
+        model.addAttribute("compras", compras);
+        return "listar-compras";
+    }
 }
