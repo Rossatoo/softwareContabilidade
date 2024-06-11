@@ -12,4 +12,6 @@ public class BalancoPatrimonialDTO {
     private BigDecimal caixa;
     private BigDecimal totalPatrimonio;
     private BigDecimal totalAtivos;
+
+    private BigDecimal patrimonioLiquido;
 }

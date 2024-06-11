@@ -1,11 +1,13 @@
 package com.example.softwareContabilidade.controller;
 
 import com.example.softwareContabilidade.model.Compra;
-import com.example.softwareContabilidade.model.Empresa;
-import com.example.softwareContabilidade.model.Patrimonio;
+import com.example.softwareContabilidade.model.Produto;
+import com.example.softwareContabilidade.model.IcmsReceber;
 import com.example.softwareContabilidade.repository.CompraRepository;
-import com.example.softwareContabilidade.repository.EmpresaRepository;
-import com.example.softwareContabilidade.repository.PatrimonioRepository;
+import com.example.softwareContabilidade.repository.IcmsReceberRepository;
+import com.example.softwareContabilidade.repository.ProdutoRepository;
+//import com.example.softwareContabilidade.repository.icmsReceberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,55 +15,50 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/compras")
 public class CompraController {
 
-    private final CompraRepository compraRepository;
-    private final EmpresaRepository empresaRepository;
-    private final PatrimonioRepository patrimonioRepository;
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
-    public CompraController(CompraRepository compraRepository, EmpresaRepository empresaRepository, PatrimonioRepository patrimonioRepository) {
-        this.compraRepository = compraRepository;
-        this.empresaRepository = empresaRepository;
-        this.patrimonioRepository = patrimonioRepository;
-    }
+    @Autowired
+    private CompraRepository compraRepository;
+    @Autowired
+    private IcmsReceberRepository icmsReceberRepository;
 
     @GetMapping("/add")
-    public String showAddForm(Model model) {
+    public String showForm(Model model) {
         model.addAttribute("compra", new Compra());
-        // Adicione os outros atributos necessários ao modelo
+        List<Produto> produtos = produtoRepository.findAll();
+        model.addAttribute("produtos", produtos);
         return "add-compra";
     }
 
     @PostMapping("/add")
-    public String addCompra(Compra compra) {
-        Empresa empresa = empresaRepository.findById(1L).orElseThrow(() -> new RuntimeException("Empresa não encontrada"));
-        BigDecimal valorCompra = compra.getValorFinal();
+    public String processCompra(Compra compra) {
 
-        if (empresa.getCaixa().compareTo(valorCompra) >= 0) {
-            empresa.setCaixa(empresa.getCaixa().subtract(valorCompra));
-            empresaRepository.save(empresa);
+        BigDecimal valorTotal = compra.getValorFinal();
 
-            Patrimonio patrimonio = new Patrimonio();
-            patrimonio.setNome(compra.getProduto().getNome());
-            patrimonio.setValorCompra(valorCompra);
-            patrimonio.setFornecedor(compra.getProduto().getFornecedor());
-            //patrimonio.setDataCompra(compra.getDataCompra());
-            patrimonioRepository.save(patrimonio);
+        BigDecimal icms = valorTotal.multiply(BigDecimal.valueOf(0.18));
 
-            compraRepository.save(compra);
-        } else {
-            // Lógica para lidar com falta de fundos
-        }
+        compraRepository.save(compra);
 
-        return "redirect:/compras/add";
+        IcmsReceber icmsReceber = new IcmsReceber();
+        icmsReceber.setValor(icms);
+        icmsReceber.setCompra(compra);
+        icmsReceberRepository.save(icmsReceber);
+
+
+        return "redirect:/compras/add";// Redireciona para a lista de compras ou página de confirmação
     }
 
     @GetMapping("/listar")
     public String listarCompras(Model model) {
-        model.addAttribute("compras", compraRepository.findAll());
+        List<Compra> compras = compraRepository.findAll();
+        model.addAttribute("compras", compras);
         return "listar-compras";
     }
 }
