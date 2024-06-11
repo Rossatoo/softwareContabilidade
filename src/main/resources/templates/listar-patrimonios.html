@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listar Patrimônios</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="layout/menu :: navbar"></div>
+<div class="container mt-5">
+    <h1>Listar Patrimônios</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Valor de Compra</th>
+            <th>Fornecedor</th>
+            <th>Data de Compra</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="patrimonio : ${patrimonios}">
+            <td th:text="${patrimonio.id}"></td>
+            <td th:text="${patrimonio.nome}"></td>
+            <td th:text="${patrimonio.valorCompra}"></td>
+            <td th:text="${patrimonio.fornecedor.nome}"></td>
+            <td th:text="${patrimonio.dataCompra}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

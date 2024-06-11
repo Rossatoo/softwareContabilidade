@@ -59,6 +59,23 @@
                         <a class="dropdown-item" th:href="@{/clientes/listar}">Listar Clientes</a>
                     </div>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPatrimonios" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Patrimônios
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownPatrimonios">
+                        <a class="dropdown-item" th:href="@{/patrimonios/add}">Cadastrar Patrimônio</a>
+                        <a class="dropdown-item" th:href="@{/patrimonios/listar}">Listar Patrimônios</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBalancoPatrimonial" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Balanço Patrimonial
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownPatrimonios">
+                        <a class="dropdown-item" th:href="@{/balanco/visualizar}">Visualizar Balanço</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>

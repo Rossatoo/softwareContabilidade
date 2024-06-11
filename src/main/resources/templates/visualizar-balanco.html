@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Balanço Patrimonial</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="layout/menu :: navbar"></div>
+<div class="container mt-5">
+    <h1>Balanço Patrimonial</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Descrição</th>
+            <th>Valor</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Capital Social</td>
+            <td th:text="${balanco.capitalSocial}"></td>
+        </tr>
+        <tr>
+            <td>Caixa</td>
+            <td th:text="${balanco.caixa}"></td>
+        </tr>
+        <tr>
+            <td>Total Patrimônio</td>
+            <td th:text="${balanco.totalPatrimonio}"></td>
+        </tr>
+        <tr>
+            <td>Total Ativos</td>
+            <td th:text="${balanco.totalAtivos}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
